@@ -1,0 +1,31 @@
+<header>
+  <h1>Angular demo</h1>
+</header>
+<main>
+  <div class="posts">
+    <mat-card *ngFor="let post of posts" class="post-card">
+      <mat-card-header>
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-subtitle>Author: <a class="card-link" href="http://www.google.com">{{post.userId}}</a></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{post.body}}</p>
+      </mat-card-content>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Comments
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+      <!--    <mat-card-actions>-->
+      <!--      <button mat-button>LIKE</button>-->
+      <!--      <button mat-button>SHARE</button>-->
+      <!--    </mat-card-actions>-->
+    </mat-card>
+  </div>
+</main>
+<footer></footer>
+
+
