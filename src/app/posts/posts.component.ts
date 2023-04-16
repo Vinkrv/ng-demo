@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {PostsService} from "./posts.service";
 import {Posts} from "../shared/models/posts";
+import {switchMap, tap} from "rxjs";
 
 @Component({
   selector: 'app-posts',
@@ -9,6 +10,7 @@ import {Posts} from "../shared/models/posts";
   encapsulation: ViewEncapsulation.Emulated
 })
 export class PostsComponent implements OnInit {
+  @Input() userPosts: boolean = false
   posts: Array<Posts> = [];
 
   constructor(private postsService: PostsService) {
@@ -18,6 +20,17 @@ export class PostsComponent implements OnInit {
     this.postsService.getPosts().subscribe(
       data => this.posts = data
     )
+    // this.postsService.getPosts().pipe(
+    //   tap( (res: Posts[]) => {
+    //     this.posts = res
+    //   }),
+    //   tap( () => {
+    //     this.posts = this.posts.map( el => {
+    //       el.user = this.postsService.getUser(el.userId)
+    //       return el
+    //     })
+    //   })
+    // ).subscribe()
   }
 
   getPostComments(postId: number): void {

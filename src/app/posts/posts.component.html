@@ -1,12 +1,10 @@
-<header>
-  <h1>Angular demo</h1>
-</header>
+
 <main>
   <div class="posts">
     <mat-card *ngFor="let post of posts" class="post-card">
       <mat-card-header>
         <mat-card-title>{{post.title}}</mat-card-title>
-        <mat-card-subtitle>Author: <a class="card-link" href="http://www.google.com">{{post.userId}}</a></mat-card-subtitle>
+        <mat-card-subtitle>Author: <a class="card-link" routerLink="/user/{{post.userId}}">{{post.userId}}</a></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>{{post.body}}</p>
@@ -17,14 +15,24 @@
             Comments
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list>
-          <mat-list-item *ngFor="let comment of post.comments">
-            <mat-icon matListItemIcon>account_circle</mat-icon>
-            <span matListItemTitle>{{comment.name}}</span>
-            <span matListItemLine><{{comment.email}}></span>
-            <span matListItemLine class="comment-body">{{comment.body}}</span>
-          </mat-list-item>
-        </mat-list>
+        <div class="comments">
+          <div class="comment" *ngFor="let comment of post.comments">
+            <mat-icon>account_circle</mat-icon>
+            <div>
+              <div class="comment-title">{{comment.name}}</div>
+              <div class="comment-email"><{{comment.email}}></div>
+              <p class="comment-body">{{comment.body}}</p>
+            </div>
+          </div>
+        </div>
+<!--        <mat-list>-->
+<!--          <mat-list-item *ngFor="let comment of post.comments">-->
+<!--            <mat-icon matListItemIcon>account_circle</mat-icon>-->
+<!--            <span matListItemTitle>{{comment.name}}</span>-->
+<!--            <span matListItemLine><{{comment.email}}></span>-->
+<!--            <span matListItemLine class="comment-body">{{comment.body}}</span>-->
+<!--          </mat-list-item>-->
+<!--        </mat-list>-->
       </mat-expansion-panel>
     </mat-card>
   </div>
