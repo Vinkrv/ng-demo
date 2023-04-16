@@ -47,6 +47,7 @@ main {
       mat-card-content {
         margin-top: 18px;
         font-size: 18px;
+        margin-bottom: 18px;
       }
       mat-expansion-panel {
         mat-expansion-panel-header {
@@ -57,6 +58,28 @@ main {
           ::ng-deep {
             .mat-expansion-indicator::after {
               color: #50fa7b;
+            }
+          }
+        }
+        mat-list {
+          mat-icon {
+            margin-right: 10px;
+          }
+          span[matListItemTitle] {
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #ff79c6;
+          }
+          .comment-body {
+            color: #fcfcfc;
+            font-size: 18px;
+          }
+          ::ng-deep {
+            .mdc-list-item__secondary-text {
+              white-space: normal;
+              &::before{
+                height: auto;
+              }
             }
           }
         }

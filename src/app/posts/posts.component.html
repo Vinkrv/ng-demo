@@ -11,18 +11,21 @@
       <mat-card-content>
         <p>{{post.body}}</p>
       </mat-card-content>
-      <mat-expansion-panel>
+      <mat-expansion-panel (opened)=getPostComments(post.id)>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Comments
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
+        <mat-list>
+          <mat-list-item *ngFor="let comment of post.comments">
+            <mat-icon matListItemIcon>account_circle</mat-icon>
+            <span matListItemTitle>{{comment.name}}</span>
+            <span matListItemLine><{{comment.email}}></span>
+            <span matListItemLine class="comment-body">{{comment.body}}</span>
+          </mat-list-item>
+        </mat-list>
       </mat-expansion-panel>
-      <!--    <mat-card-actions>-->
-      <!--      <button mat-button>LIKE</button>-->
-      <!--      <button mat-button>SHARE</button>-->
-      <!--    </mat-card-actions>-->
     </mat-card>
   </div>
 </main>

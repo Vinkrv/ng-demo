@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {PostsService} from "./posts.service";
+import {Posts} from "../shared/models/posts";
 
 @Component({
   selector: 'app-posts',
@@ -8,14 +9,27 @@ import {PostsService} from "./posts.service";
   encapsulation: ViewEncapsulation.Emulated
 })
 export class PostsComponent implements OnInit {
-  posts: any
+  posts: Array<Posts> = [];
 
   constructor(private postsService: PostsService) {
   }
 
-  ngOnInit() {
-    this.posts = this.postsService.getPosts().subscribe(
-        (data: any) => this.posts = data
+  ngOnInit(): void {
+    this.postsService.getPosts().subscribe(
+      data => this.posts = data
+    )
+  }
+
+  getPostComments(postId: number): void {
+    this.postsService.getPostComments(postId).subscribe(
+      data => {
+        this.posts = this.posts.map( el => {
+          if (el.id === postId) {
+            el.comments = data
+          }
+          return el
+        })
+      }
     )
   }
 }

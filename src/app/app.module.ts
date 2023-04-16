@@ -9,6 +9,9 @@ import { UserComponent } from './user/user.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import {MatExpansionModule} from "@angular/material/expansion";
     BrowserAnimationsModule,
     HttpClientModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatListModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
