@@ -1,9 +1,12 @@
 <div class="content">
-  <div class="posts">
-    <mat-card *ngFor="let post of posts" class="post-card">
+  <mat-spinner *ngIf="!isLoaded" color="accent"></mat-spinner>
+  <div *ngIf="isLoaded" class="posts">
+    <mat-card *ngFor="let post of postsList$ | async" class="post-card">
       <mat-card-header>
         <mat-card-title>{{post.title}}</mat-card-title>
-        <mat-card-subtitle *ngIf="!userPosts">Author: <a class="card-link" routerLink="/user/{{post.userId}}">{{post?.user?.username}}</a></mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!userPosts">Author: <a class="card-link"
+                                                         routerLink="/user/{{post.userId}}">{{post?.user?.username}}</a>
+        </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>{{post.body}}</p>
@@ -14,7 +17,8 @@
             Comments
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="comments">
+        <mat-progress-bar color="accent" *ngIf="!post.comments" mode="indeterminate"></mat-progress-bar>
+        <div *ngIf="!!post.comments" class="comments">
           <div class="comment" *ngFor="let comment of post.comments">
             <mat-icon>account_circle</mat-icon>
             <div>
@@ -27,6 +31,5 @@
       </mat-expansion-panel>
     </mat-card>
   </div>
+  <mat-paginator color="accent" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
-
-

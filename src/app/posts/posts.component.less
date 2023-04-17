@@ -2,27 +2,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .posts {
     width: 90%;
+
     .post-card {
       margin-left: auto;
       margin-right: auto;
       min-width: 600px;
       max-width: 1500px;
       margin-bottom: 20px;
+
       mat-card-header {
         display: flex;
         flex-direction: column;
         align-items: center;
+
         mat-card-title {
           font-size: 32px;
           font-weight: 800;
           text-align: center;
           margin-top: 15px;
         }
+
         mat-card-subtitle {
           font-size: 16px;
           text-align: center;
+
           .card-link {
             text-decoration: none;
             text-transform: uppercase;
@@ -30,42 +36,51 @@
           }
         }
       }
+
       mat-card-content {
         margin-top: 18px;
         font-size: 18px;
         margin-bottom: 18px;
       }
+
       mat-expansion-panel {
         mat-expansion-panel-header {
           mat-panel-title {
             font-size: 18px;
             color: #50fa7b;
           }
+
           ::ng-deep {
             .mat-expansion-indicator::after {
               color: #50fa7b;
             }
           }
         }
+
         .comments {
           margin-right: 10px;
           margin-left: 10px;
+
           .comment {
             display: flex;
             flex-wrap: nowrap;
+
             mat-icon {
               margin-right: 5px;
               width: 24px;
               flex-shrink: 0;
             }
+
             .comment-title {
               color: #ff79c6;
               font-size: 18px;
               font-weight: 800;
             }
+
             .comment-email {
               color: #40C4FF;
             }
+
             .comment-body {
               color: #fcfcfc;
               font-size: 18px;

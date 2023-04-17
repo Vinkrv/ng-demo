@@ -10,6 +10,7 @@ import {Comments} from "../shared/models/comments"
 export class PostsService {
   constructor(private http: HttpClient) {
   }
+
   private api = 'https://jsonplaceholder.typicode.com'
 
   getPosts(): Observable<Posts[]> {

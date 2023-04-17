@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {User} from "../shared/models/user";
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {catchError, tap} from "rxjs";
+import {catchError, Subscription, tap} from "rxjs";
+import {User} from "../shared/models/user";
 import {UserService} from "./user.service";
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.less']
+  styleUrls: ['./user.component.less'],
+  encapsulation: ViewEncapsulation.Emulated
 })
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit, OnDestroy {
   user: User | undefined;
-  userId: number= 0;
+  userId: number = 0;
+  user$: Subscription | undefined;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute) {
@@ -21,9 +23,13 @@ export class UserComponent implements OnInit{
     this.route.params.subscribe((params) => {
       this.userId = Number(params['id'])
     })
-    this.userService.getUser(this.userId).pipe(
+    this.user$ = this.userService.getUser(this.userId).pipe(
       tap((res: User | undefined) => this.user = res),
       catchError(async (err) => console.log(err))
     ).subscribe()
+  }
+
+  ngOnDestroy(): void {
+    this.user$?.unsubscribe();
   }
 }
