@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {PostsService} from "./posts.service";
 import {Posts} from "../shared/models/posts";
-import {switchMap, tap} from "rxjs";
+import {concatMap, from, switchMap, tap, map, toArray, catchError} from "rxjs";
 
 @Component({
   selector: 'app-posts',
@@ -17,20 +17,21 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.postsService.getPosts().subscribe(
-      data => this.posts = data
-    )
-    // this.postsService.getPosts().pipe(
-    //   tap( (res: Posts[]) => {
-    //     this.posts = res
-    //   }),
-    //   tap( () => {
-    //     this.posts = this.posts.map( el => {
-    //       el.user = this.postsService.getUser(el.userId)
-    //       return el
-    //     })
-    //   })
-    // ).subscribe()
+    this.postsService.getPosts().pipe(
+      switchMap(posts => from(posts)),
+      concatMap(post => this.postsService.getUser(post.userId).pipe(
+        map(user => ({
+          id: post.id,
+          userId: post.userId,
+          title: post.title,
+          body: post.body,
+          user: user,
+        })),
+      )),
+      toArray(),
+      tap((list) => this.posts = list),
+      catchError(async (err) => console.log(err))
+    ).subscribe()
   }
 
   getPostComments(postId: number): void {
