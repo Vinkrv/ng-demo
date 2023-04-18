@@ -11,9 +11,9 @@ import {UserService} from "./user.service";
   encapsulation: ViewEncapsulation.Emulated
 })
 export class UserComponent implements OnInit, OnDestroy {
-  user: User | undefined;
+  user: User;
   userId: number = 0;
-  user$: Subscription | undefined;
+  user$: Subscription;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute) {
@@ -24,7 +24,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userId = Number(params['id'])
     })
     this.user$ = this.userService.getUser(this.userId).pipe(
-      tap((res: User | undefined) => this.user = res),
+      tap((res: User) => this.user = res),
       catchError(async (err) => console.log(err))
     ).subscribe()
   }

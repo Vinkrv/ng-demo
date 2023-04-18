@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {concatMap, from, switchMap, tap, map, toArray, catchError, Subscription, Observable} from "rxjs";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
@@ -25,19 +25,18 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   constructor(private postsService: PostsService,
               private userService: UserService,
-              private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
   ngOnInit(): void {
-    this.changeDetectorRef.detectChanges();
+    this.checkPageAndGetResults();
+  }
+
+  checkPageAndGetResults(): void {
     if (this.userPosts) {
       this.posts$ = this.postsService.getUserPosts(this.userId).pipe(
         tap(res => {
-          this.dataSource = new MatTableDataSource<Posts>(res)
-          this.dataSource.paginator = this.paginator;
-          this.postsList$ = this.dataSource.connect();
-          this.isLoaded = true;
+          this.savePostsResults(res);
         }),
         catchError(async (err) => console.log(err))
       ).subscribe()
@@ -55,14 +54,18 @@ export class PostsComponent implements OnInit, OnDestroy {
         )),
         toArray(),
         tap((list) => {
-          this.dataSource = new MatTableDataSource<Posts>(list)
-          this.dataSource.paginator = this.paginator;
-          this.postsList$ = this.dataSource.connect();
-          this.isLoaded = true;
+          this.savePostsResults(list);
         }),
         catchError(async (err) => console.log(err))
       ).subscribe();
     }
+  }
+
+  savePostsResults(posts: Posts[]): void {
+    this.dataSource = new MatTableDataSource<Posts>(posts);
+    this.dataSource.paginator = this.paginator;
+    this.postsList$ = this.dataSource.connect();
+    this.isLoaded = true;
   }
 
   getPostComments(postId: number): void {
@@ -79,7 +82,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.posts$.unsubscribe();
-    this.comments$.unsubscribe();
+    this.posts$?.unsubscribe();
+    this.comments$?.unsubscribe();
   }
 }

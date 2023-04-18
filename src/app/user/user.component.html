@@ -1,12 +1,12 @@
 <div class="content">
   <div *ngIf="user" class="user">
-    <mat-icon>account_circle</mat-icon>
-    <div class="user-info">
-      <h2 class="username">{{user.username}}</h2>
-      <h3 class="name">{{user.name}}</h3>
-      <address class="email">{{user.email}}</address>
-      <div class="phone">{{user.phone}}</div>
-      <a class="link" href="https://{{user.website}}">{{user.website}}</a>
+    <mat-icon class="user__icon">account_circle</mat-icon>
+    <div class="user__info">
+      <h2 class="user__nickname">{{user.username}}</h2>
+      <h3 class="user__name">{{user.name}}</h3>
+      <address class="user__email">{{user.email}}</address>
+      <div class="user__phone">{{user.phone}}</div>
+      <a class="user__website" href="https://{{user.website}}">{{user.website}}</a>
     </div>
   </div>
 </div>

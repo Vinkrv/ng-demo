@@ -4,9 +4,7 @@ import {Observable} from "rxjs";
 import {Posts} from "../shared/models/posts";
 import {Comments} from "../shared/models/comments"
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PostsService {
   constructor(private http: HttpClient) {
   }
