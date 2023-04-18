@@ -1,0 +1,13 @@
+<div class="content">
+  <div *ngIf="user" class="user">
+    <mat-icon class="user__icon">account_circle</mat-icon>
+    <div class="user__info">
+      <h2 class="user__nickname">{{user.username}}</h2>
+      <h3 class="user__name">{{user.name}}</h3>
+      <address class="user__email">{{user.email}}</address>
+      <div class="user__phone">{{user.phone}}</div>
+      <a class="user__website" href="https://{{user.website}}">{{user.website}}</a>
+    </div>
+  </div>
+</div>
+<app-posts [userPosts]="true" [userId]="userId"></app-posts>
